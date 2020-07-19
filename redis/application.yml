@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hit-counter-lb
+  namespace: redis-tutorial
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+      app: myapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hit-counter-app
+  namespace: redis-tutorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: calinrus/api-redis-ha:1.0
+        ports:
+        - containerPort: 5000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: python-app-ingress
+  namespace: redis-tutorial
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hit-counter-lb
+          servicePort: 80
