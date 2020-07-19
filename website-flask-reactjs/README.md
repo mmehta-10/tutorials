@@ -1,4 +1,6 @@
-## Source: https://developer.okta.com/blog/2018/12/20/crud-app-with-python-flask-react
+## Source
+
+> https://developer.okta.com/blog/2018/12/20/crud-app-with-python-flask-react
 
 ```
 $ pipenv install flask==1.0.2
@@ -30,8 +32,9 @@ Installing dependencies from Pipfile.lock (b89d92)…
 To activate this project's virtualenv, run pipenv shell.
 Alternatively, run a command inside the virtualenv with pipenv run.
 
-### For reactjs, install yarn
 ```
+
+### For reactjs, install yarn
 
 ```
 # source:
