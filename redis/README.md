@@ -1,3 +1,9 @@
+## Stand up redis and application pods
+
+```
+kubectl apply -f .
+```
+
 ## Deploy Redis Cluster
 
 The next step is to form a Redis Cluster. To do this, we run the following command and type yes to accept the configuration. The first three nodes become masters, and the last three become slaves.
