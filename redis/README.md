@@ -26,11 +26,10 @@ done
 
 We can simulate the failure of a cluster member by deleting the Pod via kubectl. When we delete redis-cluster-0, which was originally a master, we see that Kubernetes promotes redis-cluster-3 to master, and when redis-cluster-0 returns, it does so as a slave.
 
-`
+```
 kubectl describe pods redis-cluster-0 | grep IP
 kubectl describe pods redis-cluster-3 | grep IP
 
 kubectl exec -it redis-cluster-0 -- redis-cli role
 kubectl exec -it redis-cluster-3 -- redis-cli role
-`
-
+```
