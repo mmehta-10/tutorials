@@ -10,8 +10,8 @@ class Main extends Component {
    return (
      <Router>
        <Security
-	 issuer="https://dev-758036.oktapreview.com"
-         client_id="0oalcyk6aVCpFfRbu4x6"
+	 issuer="https://dev-REDACTED.okta.com"
+         client_id="REDACTED"
          redirect_uri={'http://localhost:8081/implicit/callback'}
          scope={['openid', 'profile', 'email']}>
         
