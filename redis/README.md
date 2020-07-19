@@ -39,3 +39,7 @@ kubectl describe pods redis-cluster-3 | grep IP
 kubectl exec -it redis-cluster-0 -- redis-cli role
 kubectl exec -it redis-cluster-3 -- redis-cli role
 ```
+
+### Tutorial steps taken from
+
+> https://rancher.com/blog/2019/deploying-redis-cluster
