@@ -5,7 +5,9 @@ import (
 	"log"
 	"os" //declared but not used, hence preceded with _
 
-	corev1 "k8s.io/api/core/v1"
+	// corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"k8s.io/apimachinery/pkg/util/runtime"
 
 	// "k8s.io/client-go@kubernetes-1.15.11"
@@ -34,12 +36,18 @@ func main() {
 	}
 
 	factory := informers.NewSharedInformerFactory(clientset, 0)
-	informer := factory.Core().V1().Nodes().Informer()
+	// informer := factory.Core().V1().Nodes().Informer()
+	informer := factory.Core().V1().Pods().Informer()
 	stopper := make(chan struct{})
 	defer close(stopper)
+
 	defer runtime.HandleCrash()
 	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: onAdd,
+		UpdateFunc: func(oldObj, newObj interface{}) {
+            fmt.Printf("pod changed: %s \n", newObj.(v1.Object).GetName())
+        },
+		
 	})
 	go informer.Run(stopper)
 	if !cache.WaitForCacheSync(stopper, informer.HasSynced) {
@@ -53,10 +61,17 @@ func main() {
 // presence of a new kubernetes node in the cluster
 func onAdd(obj interface{}) {
 	// Cast the obj as node
-	node := obj.(*corev1.Node)
-	_, ok := node.GetLabels()[K8S_LABEL_AWS_REGION]
-	if ok {
-		fmt.Printf("It has the label!")
-	}
+	// node := obj.(*corev1.Node)
+	// _, ok := node.GetLabels()[K8S_LABEL_AWS_REGION]
+	// if ok {
+	// 	fmt.Printf("It has the label!")
+	// }
+
+	// Source: https://www.firehydrant.io/blog/stay-informed-with-kubernetes-informers/
+    // "k8s.io/apimachinery/pkg/apis/meta/v1" provides an Object
+    // interface that allows us to get metadata easily
+    mObj := obj.(v1.Object)
+    log.Printf("New Pod Added to Store: %s", mObj.GetName())
+	
 }
 
