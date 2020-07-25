@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	_ "os" //declared but not used, hence preceded with _
+	"os" //declared but not used, hence preceded with _
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/runtime"
@@ -23,8 +23,8 @@ const (
 
 func main() {
 	log.Print("Shared Informer app started")
-	// kubeconfig := os.Getenv("KUBECONFIG")
-	config, err := clientcmd.BuildConfigFromFlags("", "~/.kube/config")
+	kubeconfig := os.Getenv("HOME") + "/.kube/config"
+	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
 	if err != nil {
 		log.Panic(err.Error())
 	}
