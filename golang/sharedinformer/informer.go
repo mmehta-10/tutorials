@@ -45,7 +45,7 @@ func main() {
 	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: onAdd,
 		UpdateFunc: func(oldObj, newObj interface{}) {
-            fmt.Printf("pod changed: %s \n", newObj.(v1.Object).GetName())
+            log.Printf("pod changed: %s \n", newObj.(v1.Object).GetName())
         },
 		
 	})
