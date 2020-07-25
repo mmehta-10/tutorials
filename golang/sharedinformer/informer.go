@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
+	_ "os"
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/runtime"
 
+	// "k8s.io/client-go@kubernetes-1.15.11"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
@@ -22,7 +23,7 @@ const (
 
 func main() {
 	log.Print("Shared Informer app started")
-	kubeconfig := os.Getenv("KUBECONFIG")
+	// kubeconfig := os.Getenv("KUBECONFIG")
 	config, err := clientcmd.BuildConfigFromFlags("", "~/.kube/config")
 	if err != nil {
 		log.Panic(err.Error())
