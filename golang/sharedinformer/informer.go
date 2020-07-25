@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	_ "os"
+	_ "os" //declared but not used, hence preceded with _
 
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/runtime"
