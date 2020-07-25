@@ -1,1 +1,3 @@
-TBD
+- project dependencies declared in `go.mod`
+- dependencies versioned to `0.15.11` to correspond to the kubernetes cluster version
+- run `go mod tidy` in the root directory to reimport after package version change
